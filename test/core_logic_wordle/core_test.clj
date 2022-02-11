@@ -1,9 +1,48 @@
 (ns core-logic-wordle.core-test
   (:require [clojure.test :refer :all]
+            [clojure.core.logic :as l]
             [core-logic-wordle.core :as sut]))
 
-(deftest solve-test
-  (testing "solve will return at least one five-letter word"
-    (let [a (first (sut/solve))]
+(deftest specific-solve-test
+  (testing "specific-solve will return at least one five-letter word"
+    (let [a (first (sut/specific-solve))]
       (is (string? a))
       (is (= 5 (count a))))))
+
+(deftest knowno-test
+  (testing "known binding"
+    (testing "when the value is known (non-nil), knowno must bind the value"
+      (let [actual (l/run* [q]
+                           (l/fresh [a]
+                                    (sut/knowno a "A")
+                                    (l/== q a)))]
+        (is (= ["A"] actual))))
+    (testing "when the value is unknown known (nil), knowno must not bind the value"
+      (let [actual (l/run* [q]
+                           (l/fresh [a]
+                                    (sut/knowno a nil)
+                                    ;; this can only succeed if a is not ground by the above
+                                    (l/== a :not-known)
+                                    (l/== q a)))]
+        (is (= [:not-known] actual))))))
+
+(deftest simple-solve-test
+  (testing "test solving a specific problem"
+    (testing "where every letter and position is known"
+      (testing "and nothing else is known"
+        (let [actual (sut/simple-solve "" "THINK" ["" "" "" "" ""])]
+          (is (= 1 (count actual)))
+          (is (= "THINK" (first actual)))))
+      (testing "and compatible not-in-this-positions are known"
+        (let [actual (sut/simple-solve "" "THINK" ["HI" "IN" "NK" "KT" "TH"])]
+          (is (= 1 (count actual)))
+          (is (= ["THINK"] actual)))))
+    (testing "where some letters and positions are known"
+      (testing "and compatible not-in-this-positions are known"
+        (testing "and has single solution"
+          (let [actual (sut/simple-solve "" "TH.NK" ["HI" "IN" "NK" "KT" "TH"])]
+            (is (= 1 (count actual)))
+            (is (= ["THINK"] actual))))
+        (testing "and has multiple solutions"
+          (let [actual (sut/simple-solve "BCDEFGJLMOPQRSUVWXYZ" "TH.NK" ["" "" "" "" ""])]
+            (is (= #{"THTNK" "THHNK" "THINK" "THNNK" "THKNK" "THANK"} (set actual)))))))))
