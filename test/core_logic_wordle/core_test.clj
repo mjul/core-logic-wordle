@@ -46,4 +46,11 @@
             (is (= ["THINK"] actual))))
         (testing "and has multiple solutions"
           (let [actual (sut/simple-solve "BCDEFGJLMOPQRSUVWXYZ" "TH.NK" ["" "" "" "" ""])]
-            (is (= #{"THTNK" "THHNK" "THINK" "THNNK" "THKNK" "THANK"} (set actual)))))))))
+            (is (= #{"THTNK" "THHNK" "THINK" "THNNK" "THKNK" "THANK"} (set actual))))))))
+  (testing "actual Wordle problems can be solved"
+    (testing "HUMOR"
+      (let [actual (sut/simple-solve "AIELDNTPYG" "....." ["" "RO" "" "UM" ""])]
+        (is (some #{"HUMOR"} actual))))
+    (testing "ULCER"
+      (let [actual (sut/simple-solve "AIDONTS" "...E." ["R" "RU" "L" "U" "L"])]
+        (is (some #{"ULCER"} actual))))))
