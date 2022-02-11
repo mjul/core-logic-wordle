@@ -118,9 +118,7 @@
                           (knowno c known-c)
                           (knowno d known-d)
                           (knowno e known-e)
-                          
-                          (l/everyg #(lettero %) [a b c d e])
-                          
+
                           ;; discard all the letters that are not in the word
                           (l/everyg #(nonmembero % (vec letters-not-in-word)) [a b c d e])
 
@@ -144,6 +142,9 @@
                           ;; ditto, not e
                           (l/everyg #(l/membero % [a b c d ,]) not-e)
                           (l/everyg #(l/!= e %) not-e)
+
+                          ;; other than that, the word consists of letters
+                          (l/everyg #(lettero %) [a b c d e])
 
                           (l/== q [a b c d e])))
          (map #(apply str %)))))
