@@ -5,9 +5,10 @@
 
 (deftest specific-solve-test
   (testing "specific-solve will return at least one five-letter word"
-    (let [a (first (sut/specific-solve))]
-      (is (string? a))
-      (is (= 5 (count a))))))
+    (let [actual (sut/specific-solve)]
+      (is (every? string? actual))
+      (is (every? #(= 5 (count %)) actual))
+      (is (some #{"HUMOR"} actual) "HUMOR is the known solution"))))
 
 (deftest knowno-test
   (testing "known binding"
