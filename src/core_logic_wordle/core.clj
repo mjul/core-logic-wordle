@@ -105,8 +105,12 @@
   {:pre [(string? letters-not-in-word)
          (string? correct-position)
          (= 5 (count correct-position))
+         ;; no not-in word letters in a correct position
+         (not-any? (set letters-not-in-word) correct-position)
          (= 5 (count incorrect-position))
-         (every? string? incorrect-position)]}
+         (every? string? incorrect-position)
+         ;; no not-in word letters in a not-in-this-position
+         (not-any? (set letters-not-in-word) (set (apply str incorrect-position)))]}
   (let [[known-a known-b known-c known-d known-e :as knowns] (for [x (vec correct-position)]
                                                                (when-not (#{\.} x) x))
         [not-a not-b not-c not-d not-e :as nots] (map vec incorrect-position)]

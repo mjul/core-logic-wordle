@@ -29,6 +29,11 @@
 
 (deftest simple-solve-test
   (testing "test solving a specific problem"
+    (testing "sanity checks inputs"
+      (testing "non-letters may not be in known list"
+        (is (thrown? AssertionError (sut/simple-solve "A" "A...." ["" "" "" "" ""]))))
+      (testing "non-letters may not be in not-in-this-position list"
+        (is (thrown? AssertionError (sut/simple-solve "A" "....." ["" "A" "" "" ""])))))
     (testing "where every letter and position is known"
       (testing "and nothing else is known"
         (let [actual (sut/simple-solve "" "THINK" ["" "" "" "" ""])]
@@ -48,9 +53,7 @@
           (let [actual (sut/simple-solve "BCDEFGJLMOPQRSUVWXYZ" "TH.NK" ["" "" "" "" ""])]
             (is (= #{"THTNK" "THHNK" "THINK" "THNNK" "THKNK" "THANK"} (set actual))))))))
   (testing "actual Wordle problems can be solved"
-    (testing "HUMOR"
-      (let [actual (sut/simple-solve "AIELDNTPYG" "....." ["" "RO" "" "UM" ""])]
-        (is (some #{"HUMOR"} actual))))
-    (testing "ULCER"
-      (let [actual (sut/simple-solve "AIDONTS" "...E." ["R" "RU" "L" "U" "L"])]
-        (is (some #{"ULCER"} actual))))))
+    (are [solution actual] (some #{solution} actual)
+      "HUMOR" (sut/simple-solve "AIELDNTPYG" "....." ["" "RO" "" "UM" ""])
+      "ULCER" (sut/simple-solve "AIDONTS" "...E." ["R" "RU" "L" "U" "L"])
+      "CYNIC" (sut/simple-solve "ARELDOUTPGMKOS" ".YN.." ["" "I" "I" "" ""]))))
