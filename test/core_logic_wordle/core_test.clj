@@ -56,4 +56,6 @@
     (are [solution actual] (some #{solution} actual)
       "HUMOR" (sut/simple-solve "AIELDNTPYG" "....." ["" "RO" "" "UM" ""])
       "ULCER" (sut/simple-solve "AIDONTS" "...E." ["R" "RU" "L" "U" "L"])
-      "CYNIC" (sut/simple-solve "ARELDOUTPGMKOS" ".YN.." ["" "I" "I" "" ""]))))
+      "CYNIC" (sut/simple-solve "ARELDOUTPGMKOS" ".YN.." ["" "I" "I" "" ""])
+      "AROMA" (sut/simple-solve "ETYUIPDGLN" "AR.M." ["" "O" "" "" ""])
+      )))
