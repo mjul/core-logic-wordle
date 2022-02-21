@@ -58,4 +58,5 @@
       "ULCER" (sut/simple-solve "AIDONTS" "...E." ["R" "RU" "L" "U" "L"])
       "CYNIC" (sut/simple-solve "ARELDOUTPGMKOS" ".YN.." ["" "I" "I" "" ""])
       "AROMA" (sut/simple-solve "ETYUIPDGLN" "AR.M." ["" "O" "" "" ""])
+      "DODGE" (sut/simple-solve "RTYUIPASLCNM" "DO..E" ["" "" "GO" "E" ""])
       )))
