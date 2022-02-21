@@ -59,4 +59,5 @@
       "CYNIC" (sut/simple-solve "ARELDOUTPGMKOS" ".YN.." ["" "I" "I" "" ""])
       "AROMA" (sut/simple-solve "ETYUIPDGLN" "AR.M." ["" "O" "" "" ""])
       "DODGE" (sut/simple-solve "RTYUIPASLCNM" "DO..E" ["" "" "GO" "E" ""])
+      "OTHER" (sut/simple-solve "UIADLN" "...E." ["" "RO" "" "" "T"])
       )))
