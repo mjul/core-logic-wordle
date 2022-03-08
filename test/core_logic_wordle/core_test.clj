@@ -60,4 +60,7 @@
       "AROMA" (sut/simple-solve "ETYUIPDGLN" "AR.M." ["" "O" "" "" ""])
       "DODGE" (sut/simple-solve "RTYUIPASLCNM" "DO..E" ["" "" "GO" "E" ""])
       "OTHER" (sut/simple-solve "UIADLN" "...E." ["" "RO" "" "" "T"])
+      "BLOKE" (sut/simple-solve "RTYUIPASDHCNM" ".LO.E" ["" "O" "" "E" "L"])
+      "CHOKE" (sut/simple-solve "RTUIADLNSP" "..O.E" ["" "OC" "" "E" ""])
+      "SWEET" (sut/simple-solve "RYUIOPADGHLCBN" "...ET" ["E" "E" "S" "" ""])
       )))
